@@ -76,7 +76,8 @@ function onKeyDown(event) {
 
 function onGameFinished () {
     const message = "Game Over, the winner: " + getCurrentMark();
-    alert (message);
+    
+    setTimeout(function(){ alert (message); }, 1);
 }
 
 function moveCursor(direction) {
@@ -94,7 +95,6 @@ function moveCursor(direction) {
             cursorCol = Math.max(0, cursorCol - 1);
             break;
     }
-    console.log(cursorRow);
     setCursor(cursorRow, cursorCol);
 }
 
@@ -103,7 +103,12 @@ function placeMark() {
         return;
     }
 
+    if (getCellValue(cursorRow, cursorCol)) {
+        return;
+    }
+
     setCellValue(cursorRow, cursorCol, getCurrentMark());
+
     if (isGameFinished()) {
         finished = true;
         triggerGameFinished();
